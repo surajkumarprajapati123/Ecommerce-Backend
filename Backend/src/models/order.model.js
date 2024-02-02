@@ -1,0 +1,99 @@
+const mongoose = require('mongoose')
+
+const OrderSchema = mongoose.Schema({
+    shipipngInfo:{
+        address:{
+            type:String,
+            required:true
+        },
+        city:{
+            type:String,
+            required:true
+        },
+        state:{
+            type:String,
+            required:true
+        },
+        pinecode:{
+            type:Number,
+            required:true
+        },
+        phoneno:{
+            type:Number,
+             default:1234567891
+        },
+        
+    },
+    OrderItem:[
+        {
+            name:{
+            type:String,
+            required:true
+        },
+         Quantity:{
+            type:Number,
+            default:1
+        }, 
+        price:{
+            type:Number,
+        },
+        image:{
+            type:String,
+            required:true
+        },
+         product:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'product',
+            required:true
+        },
+    }
+    ],
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'user'
+    },
+    PaymentInfo:{
+        id:{
+            type:String,
+            required:true
+        },
+        Status:{
+            type:String,
+            required:true
+        },
+    },
+    paidAt:{
+        type:Date,
+        required:true
+    },
+    price:{
+        type:Number,
+        required:true,
+        default:0
+    },
+    taxprice:{
+        type:Number,
+        required:true,
+        default:0
+    },
+    shippingprice:{
+        type:Number,
+        required:true,
+        default:0
+    },
+    totalprice:{
+        type:Number,
+        default:0,
+        required:true
+    },
+    OrderStatus:{
+        type:String,
+        required:true,
+        default:"processing"
+    },
+    deliveredAt:Date
+
+},{timestemps:true})
+
+const Order = mongoose.model('order',OrderSchema)
+module.exports = Order
